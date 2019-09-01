@@ -5,7 +5,14 @@
   "dependencies": {
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
+    "react-redux": "^7.1.1",
     "react-scripts": "3.1.1",
+    "redux": "^4.0.4",
+    "redux-logger": "^3.0.6",
+    "redux-observable": "^1.1.0",
+    "reselect": "^4.0.0",
+    "rxjs": "^6.5.2",
+    "typesafe-actions": "^4.4.2",
     "typescript": "3.5.3"
   },
   "scripts": {
@@ -33,6 +40,8 @@
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.3",
     "@types/react": "^16.9.2",
-    "@types/react-dom": "^16.9.0"
+    "@types/react-dom": "^16.9.0",
+    "@types/react-redux": "^7.1.2",
+    "@types/redux-logger": "^3.0.7"
   }
 }
