@@ -1,9 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
+import 'milligram'
 
+import './index.css'
 import { store } from './state'
-import App from './App'
+import App from './components/app'
 import * as serviceWorker from './serviceWorker'
 
 
