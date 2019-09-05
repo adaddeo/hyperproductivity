@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { RootState } from '../state'
+import { RootState } from 'store-types'
 import { Reminder } from '../models'
 
 interface Props {
@@ -37,7 +37,9 @@ function RemindersTable(props: Props) {
   )
 }
 
-const mapStateToProps = (state: RootState) => state
+const mapStateToProps = (state: RootState) => ({
+  reminders: state.reminders
+})
 
 export default connect(
   mapStateToProps

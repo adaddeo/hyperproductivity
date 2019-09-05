@@ -17,10 +17,11 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "jsx": "react"
   },
   "include": [
-    "src"
+    "src",
+    "typings"
   ]
 }

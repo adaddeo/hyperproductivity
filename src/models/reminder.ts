@@ -4,5 +4,4 @@ export interface Reminder {
   description?: string
   start: string
   frequency: string
-  window: string
 }

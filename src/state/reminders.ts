@@ -1,8 +1,9 @@
-import { createAction, createReducer } from 'typesafe-actions'
+import { createAction, createReducer, isActionOf } from 'typesafe-actions'
 import uuid from 'uuid/v4'
+import { filter, tap, ignoreElements } from 'rxjs/operators'
+import { Epic } from 'store-types'
 
 import { Reminder } from '../models'
-
 
 /* State */
 
@@ -26,6 +27,16 @@ export const actions = {
   add,
   remove
 }
+
+/* Epics */
+
+export const addEpic: Epic = action$ => action$.pipe(
+  filter(isActionOf(add)),
+  tap(console.log),
+  ignoreElements()
+)
+
+export const epic = addEpic
 
 /* Reducer */
 
