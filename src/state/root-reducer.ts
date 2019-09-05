@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 
-import { reducer as itemsReducer } from './items'
+import { reducer as remindersReducer } from './reminders'
 
 const rootReducer = combineReducers({
-  items: itemsReducer
+  reminders: remindersReducer
 })
 
 export default rootReducer

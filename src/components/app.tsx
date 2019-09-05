@@ -1,13 +1,13 @@
 import React from 'react'
 
-import ItemForm from './item-form'
-import ItemsTable from './items-table'
+import ReminderForm from './reminder-form'
+import ReminderTable from './reminders-table'
 
 function App() {
   return (
     <div className="container">
-      <ItemForm />
-      <ItemsTable />
+      <ReminderForm />
+      <ReminderTable />
     </div>
   )
 }
