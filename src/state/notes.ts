@@ -1,24 +1,24 @@
 import { createAction, createReducer } from 'typesafe-actions'
 import uuid from 'uuid/v4'
 
-import { Reminder } from '../models'
+import { Note } from '../models'
 
 
 /* State */
 
-export type RemindersState = Reminder[]
+export type NotesState = Note[]
 
-const initialState: RemindersState = []
+const initialState: NotesState = []
 
 /* Actions & Creators */
 
-export type AddOptions = Omit<Reminder, 'id' | 'window'>
+export type AddOptions = Omit<Note, 'id'>
 
-export const add = createAction('items/ADD', action => {
+export const add = createAction('notes/ADD', action => {
   return (options: AddOptions) => action({ id: uuid(), ...options })
 })
 
-export const remove = createAction('items/REMOVE', action => {
+export const remove = createAction('notes/DELETE', action => {
   return (id: string) => action({ id })
 })
 

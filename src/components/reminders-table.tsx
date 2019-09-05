@@ -19,7 +19,7 @@ function RemindersTable(props: Props) {
     <table>
       <thead>
         <tr>
-          <th></th>
+          <th>Reminder</th>
           <th>Status</th>
         </tr>
       </thead>
