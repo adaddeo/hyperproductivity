@@ -1,0 +1,56 @@
+@import "./colors";
+
+.pane-column {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex: auto;
+  flex-direction: column;
+
+  .pane:not(:last-child) {
+    border-bottom: 1px solid black;
+  }
+}
+
+.pane-row {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex: auto;
+  flex-direction: row;
+
+  .pane:not(:last-child) {
+    border-right: 1px solid black;
+  }
+}
+
+.pane {
+  flex: auto;
+  overflow-y: auto;
+}
+
+.pane-fixed {
+  flex: none;
+}
+
+.pane-body {
+  padding: 16px 12px;
+}
+
+.pane-body-condensed {
+  padding: 8px 12px;
+}
+
+.pane-highlight {
+  background-color: $base02;
+}
+
+.pane-header {
+  flex-grow: 0;
+  padding: 8px 12px;
+}
+
+.pane-title {
+  font-size: 18px;
+  font-weight: 600;
+}

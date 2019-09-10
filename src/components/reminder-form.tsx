@@ -52,7 +52,7 @@ function Form(props: Props) {
       setDescription('')
       setStart('')
       setFrequency('1')
-      setFrequencyUnit('')
+      setFrequencyUnit('day')
       setErrors([])
     } else {
       setErrors(errs)
@@ -66,18 +66,21 @@ function Form(props: Props) {
       <input
         type="text"
         placeholder="Title"
+        className="text-input"
         value={title}
         onChange={handleTitleChange}
       />
       <input
         type="text"
         placeholder="Description"
+        className="text-input"
         value={description}
         onChange={handleDescriptionChange}
       />
       <input
         type="text"
         placeholder="Starts on"
+        className="text-input"
         value={start}
         onChange={handleStartChange}
       />
@@ -103,7 +106,7 @@ function Form(props: Props) {
         </div>
       </div>
 
-      <input type="submit" value="Add Reminder" className="button" />
+      <input type="submit" value="Add Reminder" className="button" style={{width: '100%'}} />
 
       { errors.length > 0 &&
         errors.map(
