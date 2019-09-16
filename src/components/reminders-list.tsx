@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
+// import React, { useState } from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
@@ -10,25 +11,25 @@ type Props =
   ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>
 
-type DisplayFields = { [field: string]: boolean }
-
-const displayFieldDefaults: DisplayFields = {
-  title: true,
-  frequency: true
-}
+// type DisplayFields = { [field: string]: boolean }
+//
+// const displayFieldDefaults: DisplayFields = {
+//   title: true,
+//   frequency: true
+// }
 
 function RemindersList(props: Props) {
   const { reminders, remove } = props
 
-  const [displayFields, setDisplayFields] = useState(displayFieldDefaults)
-  const handleDisplayFieldToggle = (event: any) => {
-    const { name } = event.target
-
-    setDisplayFields({
-      ...displayFields,
-      [name]: !displayFields[name]
-    })
-  }
+  // const [displayFields, setDisplayFields] = useState(displayFieldDefaults)
+  // const handleDisplayFieldToggle = (event: any) => {
+  //   const { name } = event.target
+  //
+  //   setDisplayFields({
+  //     ...displayFields,
+  //     [name]: !displayFields[name]
+  //   })
+  // }
 
   if (reminders.length === 0) {
     return (
