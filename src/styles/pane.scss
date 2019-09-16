@@ -1,5 +1,3 @@
-@import "./colors";
-
 .pane-column {
   display: flex;
   height: 100%;
@@ -7,7 +5,7 @@
   flex: auto;
   flex-direction: column;
 
-  .pane:not(:last-child) {
+  > .pane:not(:last-child) {
     border-bottom: 1px solid black;
   }
 }
@@ -19,7 +17,7 @@
   flex: auto;
   flex-direction: row;
 
-  .pane:not(:last-child) {
+  > .pane:not(:last-child) {
     border-right: 1px solid black;
   }
 }
@@ -34,11 +32,16 @@
 }
 
 .pane-body {
-  padding: 16px 12px;
+  padding: $padding-vertical $padding-horizontal;
+}
+
+.pane-unbody {
+  margin-right: -$padding-horizontal;
+  margin-left: -$padding-horizontal;
 }
 
 .pane-body-condensed {
-  padding: 8px 12px;
+  padding: $length-1 $padding-horizontal;
 }
 
 .pane-highlight {

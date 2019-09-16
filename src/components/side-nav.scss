@@ -1,0 +1,12 @@
+@import "../styles/variables";
+
+.side-nav > a {
+  color: inherit !important;
+  display: block;
+  padding: .3rem $padding-horizontal;
+  outline: none;
+
+  &.active, &:active, &:hover, &:focus {
+    background: $base02;
+  }
+}

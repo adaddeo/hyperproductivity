@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
+import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
 import { useInputState } from '../hooks'
-import { actions, AddOptions } from '../state/reminders'
+import { actions } from '../state/reminders'
 
-interface Props {
-  add: (item: AddOptions) => void
-}
+type Props = ReturnType<typeof mapDispatchToProps>
 
 interface FormError {
   key: string
@@ -25,7 +24,8 @@ function Form(props: Props) {
 
   const [title, setTitle, handleTitleChange] = useInputState()
   const [description, setDescription, handleDescriptionChange] = useInputState()
-  const [start, setStart, handleStartChange] = useInputState()
+  const [firstOccurrence, setFirstOccurrence, handleFirstOccurrenceChange] = useInputState()
+  const [tags, setTags, handleTagsChange] = useInputState('')
   const [frequency, setFrequency, handleFrequencyChange] = useInputState('1')
   const [frequencyUnit, setFrequencyUnit, handleFrequencyUnitChange] = useInputState('day')
 
@@ -38,19 +38,26 @@ function Form(props: Props) {
       errs.push({ key: 'title', message: 'Title must be set.' })
     }
 
+    if (firstOccurrence.length === 0) {
+      errs.push({ key: 'firstOccurence', message: 'First ocurrence must be set.' })
+    }
+
     const frequencyString = frequency + ' ' + frequencyUnit
+    const tagsArray = tags.length > 0 ? tags.split(/,\s*/) : []
 
     if (errs.length === 0) {
       add({
         title,
         description,
-        start,
+        firstOccurrence,
+        tags: tagsArray,
         frequency: frequencyString
       })
 
       setTitle('')
       setDescription('')
-      setStart('')
+      setFirstOccurrence('')
+      setTags('')
       setFrequency('1')
       setFrequencyUnit('day')
       setErrors([])
@@ -62,67 +69,83 @@ function Form(props: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Title"
-        className="text-input"
-        value={title}
-        onChange={handleTitleChange}
-      />
-      <input
-        type="text"
-        placeholder="Description"
-        className="text-input"
-        value={description}
-        onChange={handleDescriptionChange}
-      />
-      <input
-        type="text"
-        placeholder="Starts on"
-        className="text-input"
-        value={start}
-        onChange={handleStartChange}
-      />
+    <div>
+      <h5>Add Reminder</h5>
 
-      <div className="row">
-        <div className="column column-50">
-          <input
-            type="number"
-            min="1"
-            step="1"
-            value={frequency}
-            onChange={handleFrequencyChange}
-          />
+      <form className="form-stacked" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Title"
+          className="text-input"
+          value={title}
+          onChange={handleTitleChange}
+        />
+        <input
+          type="text"
+          placeholder="Description"
+          className="text-input"
+          value={description}
+          onChange={handleDescriptionChange}
+        />
+        <input
+          type="text"
+          placeholder="First occurrence"
+          className="text-input"
+          value={firstOccurrence}
+          onChange={handleFirstOccurrenceChange}
+        />
+        <input
+          type="text"
+          placeholder="Tags"
+          value={tags}
+          onChange={handleTagsChange}
+        />
+
+        <div className="grid">
+          <div className="width-1-2">
+            <input
+              type="number"
+              min="1"
+              step="1"
+              value={frequency}
+              onChange={handleFrequencyChange}
+            />
+          </div>
+          <div className="width-1-2">
+            <select value={frequencyUnit} onChange={handleFrequencyUnitChange}>
+              { frequencyUnits.map(
+                  unit =>
+                    <option key={unit} value={unit}>{unit + (frequency === '1' ? '' : 's')}</option>
+                )
+              }
+            </select>
+          </div>
         </div>
-        <div className="column column-50">
-          <select value={frequencyUnit} onChange={handleFrequencyUnitChange}>
-            { frequencyUnits.map(
-                unit =>
-                  <option key={unit} value={unit}>{unit + (frequency === '1' ? '' : 's')}</option>
+
+        <div className="margin-top">
+          <input type="submit" value="Add" className="button-green" style={{width: '100%'}} />
+        </div>
+
+        { errors.length > 0 &&
+          <div className="margin-top">
+            { errors.map(
+              ({ message }, idx) =>
+                <div key={idx} className="text-error margin-2-top">
+                  {message}
+                </div>
               )
             }
-          </select>
-        </div>
-      </div>
-
-      <input type="submit" value="Add Reminder" className="button" style={{width: '100%'}} />
-
-      { errors.length > 0 &&
-        errors.map(
-          ({ message }, idx) =>
-            <div key={idx} className="text-error">
-              {message}
-            </div>
-        )
-      }
-    </form>
+          </div>
+        }
+      </form>
+    </div>
   )
 }
 
-const mapDispatchToProps = {
-  add: actions.add
-}
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators({
+    add: actions.add
+  }, dispatch)
 
 export default connect(
   null,

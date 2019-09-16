@@ -18,6 +18,13 @@ if (process.env.NODE_ENV === `development`) {
   middlewares.push(logger)
 }
 
-export const store = createStore(rootReducer, {}, applyMiddleware(...middlewares))
+let initialState = {}
+let storageState = localStorage.getItem('state')
+
+if (storageState) {
+  initialState = JSON.parse(storageState)
+}
+
+export const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares))
 
 epicMiddleware.run(rootEpic)

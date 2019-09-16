@@ -1,11 +1,12 @@
 import { createAction, createReducer, isActionOf } from 'typesafe-actions'
 import { combineEpics } from 'redux-observable'
-import uuid from 'uuid/v4'
-import { filter, tap, ignoreElements } from 'rxjs/operators'
+import { from } from 'rxjs'
+import { filter, map, mergeMap, tap, ignoreElements } from 'rxjs/operators'
 import { Epic } from 'store-types'
 
-import { Reminder } from '../models'
+import { Reminder, buildReminder } from '../models'
 import { createDatabase, insert, del } from '../storage/memory'
+import { tag } from './tags'
 
 /* State */
 
@@ -15,14 +16,12 @@ const initialState: RemindersState = []
 
 /* Actions & Creators */
 
-export type AddOptions = Omit<Reminder, 'id' | 'window'>
-
 export const init = createAction('reminders/INIT', action => {
   return (reminders: Reminder[]) => action({ reminders })
 })
 
 export const add = createAction('reminders/ADD', action => {
-  return (options: AddOptions) => action({ id: uuid(), ...options })
+  return (...args: Parameters<typeof buildReminder>) => action(buildReminder(...args))
 })
 
 export const remove = createAction('reminders/REMOVE', action => {
@@ -48,7 +47,7 @@ try {
 export const addEpic: Epic = action$ => action$.pipe(
   filter(isActionOf(add)),
   tap(action => insert(DATABASE, action.payload.id, action.payload)),
-  ignoreElements()
+  mergeMap(action => from(action.payload.tags).pipe(map(tag)))
 )
 
 export const removeEpic: Epic = action$ => action$.pipe(

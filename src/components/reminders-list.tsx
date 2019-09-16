@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
+import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
 import { RootState } from 'store-types'
-import { Reminder } from '../models'
 import { actions } from '../state/reminders'
+import { nextOccurrence } from '../models/reminder'
 
-interface Props {
-  reminders: Reminder[]
-  remove: (id: string) => void
-}
+type Props =
+  ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>
 
 type DisplayFields = { [field: string]: boolean }
 
@@ -17,7 +17,7 @@ const displayFieldDefaults: DisplayFields = {
   frequency: true
 }
 
-function RemindersTable(props: Props) {
+function RemindersList(props: Props) {
   const { reminders, remove } = props
 
   const [displayFields, setDisplayFields] = useState(displayFieldDefaults)
@@ -41,7 +41,7 @@ function RemindersTable(props: Props) {
   return (
     <div className="pane-column">
       <div className="pane pane-fixed pane-highlight pane-body-condensed">
-        <a href="#">Options</a>
+        <a href="#reminders-options">Options</a>
       </div>
 
       <div className="pane">
@@ -49,20 +49,35 @@ function RemindersTable(props: Props) {
             (reminder, idx) =>
               <div key={reminder.id} className="reminder">
                 <div>
-                  <div className="h4">{reminder.title}</div>
+                  <div className="h5 text-yellow">{reminder.title}</div>
                   { reminder.description &&
-                    <div className="">{reminder.description}</div>
+                    <div className="text-small text-muted margin-1-top">{reminder.description}</div>
                   }
-                  <div>
-                    every {reminder.frequency}
+                  <div className="margin-3-top">
+                    <div className="margin-1-top">
+                      Recurs
+                      {' '}
+                      <span className="text-bold">
+                        every {reminder.frequency}
+                      </span>
+                    </div>
+                    <div className="margin-1-top">
+                      Next due in
+                      {' '}
+                      <span className="text-bold">
+                        { nextOccurrence(reminder.firstOccurrence, reminder.frequency) }
+                      </span>
+                    </div>
                   </div>
                 </div>
-                <button
-                  onClick={() => remove(reminder.id)}
-                  className="button-danger"
-                >
-                  Remove
-                </button>
+                <div>
+                  <button
+                    onClick={() => remove(reminder.id)}
+                    className="button-danger"
+                  >
+                    Remove
+                  </button>
+                </div>
               </div>
           )
         }
@@ -75,11 +90,12 @@ const mapStateToProps = (state: RootState) => ({
   reminders: state.reminders
 })
 
-const mapDispatchToProps = {
-  remove: actions.remove
-}
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators({
+    remove: actions.remove
+  }, dispatch)
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(RemindersTable)
+)(RemindersList)

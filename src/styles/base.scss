@@ -1,0 +1,298 @@
+*,
+*:after,
+*:before {
+  box-sizing: inherit;
+}
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  font-size: 16px;
+  font-family: 'Source Sans Pro', monospace, sans-serif;
+  padding: 0;
+  height: 100%;
+
+  background: $base03;
+  color: $base0;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: $base0;
+
+  &:hover {
+    color: $cyan;
+  }
+}
+
+.button,
+button,
+input[type='button'],
+input[type='reset'],
+input[type='submit'] {
+	background-color: transparent;
+	border: 1px solid $base1;
+	color: $base1;
+	cursor: pointer;
+	display: inline-block;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	white-space: nowrap;
+  letter-spacing: 1px;
+  padding: 0 30px;
+  line-height: 36px;
+  outline: none;
+
+  &:focus,
+  &:hover {
+    background-color: $base1;
+    border-color: $base03;
+    color: $base03;
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.5;
+
+    &:focus,
+    &:hover {
+      background: transparent;
+      color: $base1;
+      border-color: $base1;
+    }
+  }
+
+  &.button-green {
+    border-color: $green;
+    color: $green;
+
+    &:focus,
+    &:hover {
+      color: $base03;
+      background-color: $green;
+    }
+
+    &:disabled {
+      &:focus,
+      &:hover {
+        border-color: $green;
+        color: $green;
+      }
+    }
+  }
+
+  &.button-danger {
+    border-color: $red;
+    color: $red;
+
+    &:focus,
+    &:hover {
+      color: $base03;
+      background-color: $red;
+    }
+
+    &:disabled {
+      &:focus,
+      &:hover {
+        border-color: $red;
+        color: $red;
+      }
+    }
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: $length-2;
+}
+
+.h3, h3 {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+}
+
+.h4, h4 {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  color: $base1;
+}
+
+.h5, h5 {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  color: $base1;
+}
+
+table {
+	border-spacing: 0;
+	width: 100%;
+}
+
+td,
+th {
+	padding: 6px 9px;
+	text-align: left;
+
+	&:first-child {
+		padding-left: 0
+  }
+
+	&:last-child {
+		padding-right: 0
+  }
+}
+
+
+.margin-top {
+  margin-top: $length-2;
+}
+
+.margin-bottom {
+  margin-bottom: $length-2;
+}
+
+.margin-right {
+  margin-right: 12px;
+}
+
+.margin-left {
+  margin-left: 12px;
+}
+
+@each $size in $sizes {
+  $index: index($sizes, $size);
+
+  .margin-#{$index}-top {
+    margin-top: $size;
+  }
+
+  .margin-#{$index}-bottom {
+    margin-bottom: $size;
+  }
+}
+
+.text-small {
+  font-size: 14px;
+}
+
+.text-muted {
+  color: $base01;
+}
+
+.text-bold {
+  font-weight: 600;
+}
+
+#root {
+  height: 100%;
+}
+
+// Text
+
+.text-yellow {
+  color: $yellow;
+}
+
+.text-magenta {
+  color: $magenta;
+}
+
+.text-error {
+  color: $red;
+}
+
+// Flex
+
+.flex {
+  display: flex;
+}
+
+.flex::before,
+.flex::after {
+  display: none;
+}
+
+.flex-left { justify-content: flex-start; }
+.flex-center { justify-content: center; }
+.flex-right { justify-content: flex-end; }
+.flex-between { justify-content: space-between; }
+.flex-around { justify-content: space-around; }
+
+.list {
+  margin: 8px 0;
+}
+
+.list-heading {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.row {
+  display: flex;
+  width: 100%;
+}
+
+// Main
+
+.left-nav-pane {
+  width: 180px;
+}
+
+
+// Reminders
+
+.reminders-form-panel {
+  width: 280px;
+  flex-grow: 0;
+}
+
+.reminder {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  padding: 12px 16px;
+
+  border-bottom: 1px solid black;
+
+  .title {
+    font-size: 18px;
+  }
+}
+
+.centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.form-stacked  > {
+  input[type='email'],
+  input[type='number'],
+  input[type='password'],
+  input[type='search'],
+  input[type='tel'],
+  input[type='text'],
+  input[type='url'],
+  input[type='color'],
+  input[type='date'],
+  input[type='month'],
+  input[type='week'],
+  input[type='datetime'],
+  input[type='datetime-local'],
+  input:not([type]),
+  textarea,
+  select {
+    margin-bottom: $length-1;
+  }
+}

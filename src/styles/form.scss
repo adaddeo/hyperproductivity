@@ -1,0 +1,54 @@
+
+input[type='email'],
+input[type='password'],
+input[type='search'],
+input[type='tel'],
+input[type='text'],
+input[type='url'],
+input[type='color'],
+input[type='date'],
+input[type='month'],
+input[type='week'],
+input[type='datetime'],
+input[type='datetime-local'],
+input:not([type]) {
+  appearance: none; // Removes awkward default styles on some inputs for iOS
+  background-color: transparent;
+	border: none;
+  border-bottom: 1px solid $base02;
+	box-shadow: none;
+	box-sizing: inherit; // Forced to replace inherit values of the normalize.css
+	width: 100%;
+  color: $base0;
+  outline: none;
+
+  height: 40px;
+  vertical-align: middle;
+
+  &:focus,
+  &:active {
+    border-bottom: 1px solid $yellow;
+  }
+
+  &::placeholder {
+    color: $base01;
+  }
+}
+
+// Inputs that are displayed with extra UI elements by the browser
+
+input[type='number'],
+select {
+  padding: 0 $length-0;
+  background: $base02;
+  border: none;
+  height: 40px;
+  width: 100%;
+  outline: none;
+  color: $base0;
+
+  &:focus,
+  &:active {
+    border-bottom: 1px solid $yellow;
+  }
+}
