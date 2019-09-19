@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 // import React, { useState } from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
@@ -30,6 +30,10 @@ function RemindersList(props: Props) {
   //   })
   // }
 
+  const sortedReminders = useMemo(() => {
+    return reminders.sort((a, b) => a.nextOccurrenceMS - b.nextOccurrenceMS)
+  }, [reminders])
+
   if (reminders.length === 0) {
     return (
       <div className="centered">
@@ -45,7 +49,7 @@ function RemindersList(props: Props) {
       </div>
 
       <div className="pane">
-        { reminders.map(
+        { sortedReminders.map(
             (reminder, idx) =>
               <div key={reminder.id} className="reminder">
                 <div>
@@ -70,7 +74,7 @@ function RemindersList(props: Props) {
                     </div>
                   </div>
                 </div>
-                <div>
+                <div className="flex flex-column">
                   <button
                     onClick={() => markDone(reminder.id, '')}
                     className="button-green"
@@ -80,7 +84,7 @@ function RemindersList(props: Props) {
                   {' '}
                   <button
                     onClick={() => remove(reminder.id)}
-                    className="button-danger"
+                    className="button-danger margin-2-top"
                   >
                     Remove
                   </button>

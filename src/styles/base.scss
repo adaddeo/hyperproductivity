@@ -225,6 +225,10 @@ th {
   display: none;
 }
 
+.flex-column {
+  flex-direction: column;
+}
+
 .flex-left { justify-content: flex-start; }
 .flex-center { justify-content: center; }
 .flex-right { justify-content: flex-end; }

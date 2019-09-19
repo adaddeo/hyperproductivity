@@ -78,11 +78,13 @@ export const viewReminder = (reminder: Reminder) => {
   const now = moment()
   const nextOccurrence = moment(reminder.nextOccurrence)
   const nextOccurrenceIn = moment.duration(nextOccurrence.diff(now)).humanize()
+  const nextOccurrenceMS = nextOccurrence.unix()
   const prettyFrequency = frequencyAsString(reminder.frequency)
 
   return {
     ...reminder,
     nextOccurrenceIn,
+    nextOccurrenceMS,
     prettyFrequency
   }
 }

@@ -14,11 +14,9 @@ function App() {
   return (
     <div className="pane-row dark-mode">
       <SideNav />
-      <div className="pane">
-        <Router>
-          <Route component={Reminders} path="/reminders" default />
-        </Router>
-      </div>
+      <Router className="pane">
+        <Route component={Reminders} path="/reminders" default />
+      </Router>
     </div>
   )
 }
