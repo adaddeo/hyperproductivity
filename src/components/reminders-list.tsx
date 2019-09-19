@@ -4,8 +4,7 @@ import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
 import { RootState } from 'store-types'
-import { actions } from '../state/reminders'
-import { nextOccurrence } from '../models/reminder'
+import { actions, selectors } from '../state/reminders'
 
 type Props =
   ReturnType<typeof mapStateToProps> &
@@ -19,7 +18,7 @@ type Props =
 // }
 
 function RemindersList(props: Props) {
-  const { reminders, remove } = props
+  const { reminders, remove, markDone } = props
 
   // const [displayFields, setDisplayFields] = useState(displayFieldDefaults)
   // const handleDisplayFieldToggle = (event: any) => {
@@ -59,19 +58,26 @@ function RemindersList(props: Props) {
                       Recurs
                       {' '}
                       <span className="text-bold">
-                        every {reminder.frequency}
+                        every {reminder.prettyFrequency}
                       </span>
                     </div>
                     <div className="margin-1-top">
                       Next due in
                       {' '}
                       <span className="text-bold">
-                        { nextOccurrence(reminder.firstOccurrence, reminder.frequency) }
+                        { reminder.nextOccurrenceIn }
                       </span>
                     </div>
                   </div>
                 </div>
                 <div>
+                  <button
+                    onClick={() => markDone(reminder.id, '')}
+                    className="button-green"
+                  >
+                    Mark done
+                  </button>
+                  {' '}
                   <button
                     onClick={() => remove(reminder.id)}
                     className="button-danger"
@@ -88,12 +94,13 @@ function RemindersList(props: Props) {
 }
 
 const mapStateToProps = (state: RootState) => ({
-  reminders: state.reminders
+  reminders: selectors.reminders(state)
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) =>
   bindActionCreators({
-    remove: actions.remove
+    remove: actions.remove,
+    markDone: actions.markDone
   }, dispatch)
 
 export default connect(

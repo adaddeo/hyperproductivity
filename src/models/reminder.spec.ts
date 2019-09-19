@@ -1,35 +1,69 @@
 import moment from 'moment'
 
 import {
-  nextOccurrence,
-  frequencyAsDuration
+  upcomingOccurrences,
 } from './reminder'
 
-describe('frequencyAsDuration', () => {
-  it('return correctly', () => {
-    expect(frequencyAsDuration('1 week')).toEqual(moment.duration({'week': 1}))
+describe('occurrences', () => {
+  describe('with nextOccurrence before range', () => {
+    test('with occurrences (including inclusive)', () => {
+      const nextOccurrence = moment('2019-01-01').toISOString()
+      const frequency = { count: 1, unit: 'month' }
+
+      const reminder = {
+        nextOccurrence,
+        frequency
+      }
+
+      const start = moment('2019-09-01').toISOString()
+      const end = moment('2019-10-01').toISOString()
+
+      expect(upcomingOccurrences(reminder, start, end)).toEqual([start, end])
+    })
+
+    test('without occurrences', () => {
+      const nextOccurrence = moment('2019-01-01').toISOString()
+      const frequency = { count: 1, unit: 'year' }
+
+      const reminder = {
+        nextOccurrence,
+        frequency
+      }
+
+      const start = moment('2019-09-01').toISOString()
+      const end = moment('2019-10-01').toISOString()
+
+      expect(upcomingOccurrences(reminder, start, end)).toEqual([])
+    })
   })
-})
 
-describe('nextOccurrence', () => {
-  test('before any occurrence', () => {
-    const firstOccurrence = moment().add(1, 'month').toISOString()
-    const frequency = '1 year'
+  test('with first in range', () => {
+    const nextOccurrence = moment('2019-08-01').toISOString()
+    const frequency = { count: 1, unit: 'month' }
 
-    expect(nextOccurrence(firstOccurrence, frequency)).toEqual('a month')
+    const reminder = {
+      nextOccurrence,
+      frequency
+    }
+
+    const start = moment('2019-01-01').toISOString()
+    const end = moment('2019-09-01').toISOString()
+
+    expect(upcomingOccurrences(reminder, start, end)).toEqual([nextOccurrence, end])
   })
 
-  test('after first occurrence', () => {
-    const firstOccurrence = moment().subtract(2, 'month').toISOString()
-    const frequency = '1 year'
+  test('with first after range', () => {
+    const nextOccurrence = moment('2020-08-01').toISOString()
+    const frequency = { count: 1, unit: 'month' }
 
-    expect(nextOccurrence(firstOccurrence, frequency)).toEqual('10 months')
-  })
+    const reminder = {
+      nextOccurrence,
+      frequency
+    }
 
-  test('after first recurrence', () => {
-    const firstOccurrence = moment().subtract(14, 'month').toISOString()
-    const frequency = '1 year'
+    const start = moment('2019-01-01').toISOString()
+    const end = moment('2019-09-01').toISOString()
 
-    expect(nextOccurrence(firstOccurrence, frequency)).toEqual('10 months')
+    expect(upcomingOccurrences(reminder, start, end)).toEqual([])
   })
 })

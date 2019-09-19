@@ -1,3 +1,4 @@
+import { unitOfTime } from 'moment'
 import React, { useState } from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
@@ -26,7 +27,7 @@ function Form(props: Props) {
   const [description, setDescription, handleDescriptionChange] = useInputState()
   const [firstOccurrence, setFirstOccurrence, handleFirstOccurrenceChange] = useInputState()
   const [tags, setTags, handleTagsChange] = useInputState('')
-  const [frequency, setFrequency, handleFrequencyChange] = useInputState('1')
+  const [frequencyCount, setFrequencyCount, handleFrequencyCountChange] = useInputState('1')
   const [frequencyUnit, setFrequencyUnit, handleFrequencyUnitChange] = useInputState('day')
 
   const [errors, setErrors] = useState<FormError[]>([])
@@ -42,23 +43,25 @@ function Form(props: Props) {
       errs.push({ key: 'firstOccurence', message: 'First ocurrence must be set.' })
     }
 
-    const frequencyString = frequency + ' ' + frequencyUnit
     const tagsArray = tags.length > 0 ? tags.split(/,\s*/) : []
 
     if (errs.length === 0) {
       add({
         title,
         description,
-        firstOccurrence,
         tags: tagsArray,
-        frequency: frequencyString
+        nextOccurrence: firstOccurrence,
+        frequency: {
+          count: parseInt(frequencyCount),
+          unit: frequencyUnit as unitOfTime.Base
+        }
       })
 
       setTitle('')
       setDescription('')
       setFirstOccurrence('')
       setTags('')
-      setFrequency('1')
+      setFrequencyCount('1')
       setFrequencyUnit('day')
       setErrors([])
     } else {
@@ -107,15 +110,15 @@ function Form(props: Props) {
               type="number"
               min="1"
               step="1"
-              value={frequency}
-              onChange={handleFrequencyChange}
+              value={frequencyCount}
+              onChange={handleFrequencyCountChange}
             />
           </div>
           <div className="width-1-2">
             <select value={frequencyUnit} onChange={handleFrequencyUnitChange}>
               { frequencyUnits.map(
                   unit =>
-                    <option key={unit} value={unit}>{unit + (frequency === '1' ? '' : 's')}</option>
+                    <option key={unit} value={unit}>{unit + (frequencyCount === '1' ? '' : 's')}</option>
                 )
               }
             </select>

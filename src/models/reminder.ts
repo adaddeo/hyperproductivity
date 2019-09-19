@@ -5,45 +5,87 @@ export interface Reminder {
   id: string
   title: string
   description?: string
-  firstOccurrence: string
-  frequency: string
   tags: string[]
+  frequency: Frequency
+  nextOccurrence: string
+  events: OccurrenceEvent[]
 }
 
-export type BuildReminderOptions = Omit<Reminder, 'id' | 'window'>
+export interface Frequency {
+  unit: moment.unitOfTime.Base
+  count: number
+}
 
-export const buildReminder = (options: BuildReminderOptions): Reminder => ({
+export interface OccurrenceEvent {
+  eventDate: string
+  occurrenceDate: string
+  notes?: string
+}
+
+export const buildReminder = (options: Omit<Reminder, 'id' | 'events'>): Reminder => ({
   id: uuid(),
   tags: [],
+  events: [],
   ...options
 })
 
-export const nextOccurrence = (firstOccurrence: string, frequency: string) => {
+export const withEvent = (reminder: Reminder, event: OccurrenceEvent): Reminder => {
+  const lastOccurrence = moment(reminder.nextOccurrence)
+  const nextOccurrence = lastOccurrence
+    .add(reminder.frequency.count, reminder.frequency.unit)
+    .toISOString()
+
+  return {
+    ...reminder,
+    nextOccurrence,
+    events: [
+      ...reminder.events,
+      event
+    ]
+  }
+}
+
+export const upcomingOccurrences  = (reminder: Reminder, startStr: string, endStr: string) => {
+  const nextOccurrence = moment(reminder.nextOccurrence)
+  const { count: freq, unit } = reminder.frequency
+
+  const start = moment(startStr)
+  const end = moment(endStr)
+
+  let k = nextOccurrence
+
+  // Optimization to set our k starting point (potentially) within the range
+  if (k < start) {
+    // This uses floating point numbers and probably introduces subtle bugs.
+    const a = start.diff(nextOccurrence, unit, true)
+    const b = a % freq
+
+    k = start.add(b, unit)
+  }
+
+
+  const occurrences = []
+
+  while (k <= end) {
+    occurrences.push(k.toISOString())
+    k.add(freq, unit)
+  }
+
+  return occurrences
+}
+
+export const viewReminder = (reminder: Reminder) => {
   const now = moment()
-  const firstOccurrenceDate = moment(firstOccurrence)
+  const nextOccurrence = moment(reminder.nextOccurrence)
+  const nextOccurrenceIn = moment.duration(nextOccurrence.diff(now)).humanize()
+  const prettyFrequency = frequencyAsString(reminder.frequency)
 
-  const duration = now.diff(firstOccurrenceDate)
-
-  if (duration < 0) {
-    return moment.duration(-1 * duration).humanize()
+  return {
+    ...reminder,
+    nextOccurrenceIn,
+    prettyFrequency
   }
-
-  const frequencyDuration = frequencyAsDuration(frequency).as('milliseconds')
-  const next = frequencyDuration - (duration % frequencyDuration)
-
-  return moment.duration(next).humanize()
 }
 
-const FREQUENCY_REGEX = /(\d+)\s(\w+)/
-
-export const frequencyAsDuration = (frequency: string) => {
-  const match = frequency.match(FREQUENCY_REGEX)
-
-  if (match === null) {
-    throw new Error('Invalid frequency')
-  }
-
-  const [count, unit] = match.slice(-2)
-
-  return moment.duration({ [unit]: count })
-}
+export const frequencyAsString = (frequency: Frequency) =>
+  `${frequency.count} ${frequency.unit}${frequency.count > 1 ? 's' : ''}`
