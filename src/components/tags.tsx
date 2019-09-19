@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { RootState } from 'store-types'
+import { selectors } from '../state/reminders'
+
 
 type Props =
   ReturnType<typeof mapStateToProps>
@@ -18,7 +20,7 @@ function Tags(props: Props) {
       <div className="side-nav">
         { tags.length > 0 &&
           tags.map(tag => (
-            <a key={tag.id} href="#tags">
+            <a key={tag.handle} href="#tags">
               <div className="flex flex-between">
                 <div><span className="text-muted">#</span> {tag.handle}</div>
                 <div>{tag.count}</div>
@@ -32,7 +34,7 @@ function Tags(props: Props) {
 }
 
 const mapStateToProps = (state: RootState) => ({
-  tags: state.tags
+  tags: selectors.tags(state)
 })
 
 export default connect(

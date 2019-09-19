@@ -1,12 +1,8 @@
-import { createAction, createReducer, isActionOf } from 'typesafe-actions'
-import { combineEpics } from 'redux-observable'
-import { from } from 'rxjs'
-import { filter, map, mergeMap, ignoreElements } from 'rxjs/operators'
+import { createAction, createReducer } from 'typesafe-actions'
 import { createSelector } from 'reselect'
-import { RootState, Epic } from 'store-types'
+import { RootState } from 'store-types'
 
 import { Reminder, buildReminder, withEvent, viewReminder } from '../models'
-import { tag } from './tags'
 
 /* State */
 
@@ -45,24 +41,6 @@ export const actions = {
   remove,
 }
 
-/* Epics */
-
-
-export const addEpic: Epic = action$ => action$.pipe(
-  filter(isActionOf(add)),
-  mergeMap(action => from(action.payload.tags).pipe(map(tag)))
-)
-
-export const removeEpic: Epic = action$ => action$.pipe(
-  filter(isActionOf(remove)),
-  ignoreElements()
-)
-
-export const epic = combineEpics(
-  addEpic,
-  removeEpic
-)
-
 /* Selectors */
 
 const remindersSelector = (state: RootState) => state.reminders
@@ -72,8 +50,22 @@ const viewRemindersSelector = createSelector(
   reminders => reminders.map(viewReminder)
 )
 
+const tagsSelector = createSelector(
+  remindersSelector,
+  reminders => {
+    const counts: { [key: string]: number } = {}
+
+    reminders.forEach(reminder =>
+      reminder.tags.forEach(tag => counts[tag] = (counts[tag] || 0) + 1)
+    )
+
+    return Object.keys(counts).map(handle => ({ handle, count: counts[handle] }))
+  }
+)
+
 export const selectors = {
-  reminders: viewRemindersSelector
+  reminders: viewRemindersSelector,
+  tags: tagsSelector
 }
 
 /* Reducer */
