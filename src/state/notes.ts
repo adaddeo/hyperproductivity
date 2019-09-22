@@ -1,7 +1,6 @@
 import { createAction, createReducer } from 'typesafe-actions'
-import uuid from 'uuid/v4'
 
-import { Note } from '../models'
+import { Note, buildNote } from '../models'
 
 
 /* State */
@@ -12,10 +11,12 @@ const initialState: NotesState = []
 
 /* Actions & Creators */
 
-export type AddOptions = Omit<Note, 'id'>
-
 export const add = createAction('notes/ADD', action => {
-  return (options: AddOptions) => action({ id: uuid(), ...options })
+  return () => action(buildNote())
+})
+
+export const update = createAction('notes/UPDATE', action => {
+  return (id: string, note: Partial<Note>) => action({ id, note })
 })
 
 export const remove = createAction('notes/DELETE', action => {
@@ -24,6 +25,7 @@ export const remove = createAction('notes/DELETE', action => {
 
 export const actions = {
   add,
+  update,
   remove
 }
 
@@ -36,6 +38,18 @@ export const reducer =
         ...state,
         action.payload
       ]
+    })
+    .handleAction(update, (state, action) => {
+      return state.map(note => {
+        if (note.id === action.payload.id) {
+          return {
+            ...note,
+            ...action.payload.note
+          }
+        } else {
+          return note
+        }
+      })
     })
     .handleAction(remove, (state, action) => {
       return state.filter(item => item.id !== action.payload.id)

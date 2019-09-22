@@ -1,10 +1,12 @@
 import React from 'react'
 import { Router, RouteComponentProps } from "@reach/router"
 
-import SideNav from './side-nav'
+import Notes from './notes'
 import Reminders from './reminders'
+import SideNav from './side-nav'
 
-type Props = { component: React.FunctionComponent } & RouteComponentProps
+
+type Props = { component: React.FunctionComponent | React.ComponentClass } & RouteComponentProps
 
 const Route: React.FunctionComponent<Props> = ({ component: Component }) => (
   <Component />
@@ -16,6 +18,7 @@ function App() {
       <SideNav />
       <Router className="pane">
         <Route component={Reminders} path="/reminders" default />
+        <Route component={Notes} path="/notes" />
       </Router>
     </div>
   )

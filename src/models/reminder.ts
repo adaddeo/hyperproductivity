@@ -74,7 +74,7 @@ export const upcomingOccurrences  = (reminder: Reminder, startStr: string, endSt
   return occurrences
 }
 
-export const viewReminder = (reminder: Reminder) => {
+export const reminderView = (reminder: Reminder) => {
   const now = moment()
   const nextOccurrence = moment(reminder.nextOccurrence)
   const nextOccurrenceIn = moment.duration(nextOccurrence.diff(now)).humanize()

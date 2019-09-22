@@ -8,6 +8,12 @@
   > .pane:not(:last-child) {
     border-bottom: 1px solid black;
   }
+
+  &.pane-list {
+    > .pane:last-child {
+      border-bottom: 1px solid black;
+    }
+  }
 }
 
 .pane-row {
@@ -20,7 +26,15 @@
   > .pane:not(:last-child) {
     border-right: 1px solid black;
   }
+
+  &.pane-list {
+    > .pane:last-child {
+      border-right: 1px solid black;
+    }
+  }
 }
+
+
 
 .pane {
   flex: auto;

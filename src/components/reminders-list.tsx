@@ -4,7 +4,8 @@ import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 
 import { RootState } from 'store-types'
-import { actions, selectors } from '../state/reminders'
+import { actions } from '../state/reminders'
+import { remindersSelector } from '../state/selectors'
 
 type Props =
   ReturnType<typeof mapStateToProps> &
@@ -98,7 +99,7 @@ function RemindersList(props: Props) {
 }
 
 const mapStateToProps = (state: RootState) => ({
-  reminders: selectors.reminders(state)
+  reminders: remindersSelector(state)
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) =>

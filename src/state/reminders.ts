@@ -1,8 +1,6 @@
 import { createAction, createReducer } from 'typesafe-actions'
-import { createSelector } from 'reselect'
-import { RootState } from 'store-types'
 
-import { Reminder, buildReminder, withEvent, viewReminder } from '../models'
+import { Reminder, buildReminder, withEvent } from '../models'
 
 /* State */
 
@@ -39,33 +37,6 @@ export const actions = {
   add,
   markDone,
   remove,
-}
-
-/* Selectors */
-
-const remindersSelector = (state: RootState) => state.reminders
-
-const viewRemindersSelector = createSelector(
-  remindersSelector,
-  reminders => reminders.map(viewReminder)
-)
-
-const tagsSelector = createSelector(
-  remindersSelector,
-  reminders => {
-    const counts: { [key: string]: number } = {}
-
-    reminders.forEach(reminder =>
-      reminder.tags.forEach(tag => counts[tag] = (counts[tag] || 0) + 1)
-    )
-
-    return Object.keys(counts).map(handle => ({ handle, count: counts[handle] }))
-  }
-)
-
-export const selectors = {
-  reminders: viewRemindersSelector,
-  tags: tagsSelector
 }
 
 /* Reducer */

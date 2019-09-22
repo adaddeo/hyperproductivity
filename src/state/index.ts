@@ -18,11 +18,12 @@ if (process.env.NODE_ENV === `development`) {
   middlewares.push(logger)
 }
 
-let initialState = {}
+let initialState: RootState = {} as RootState
 let storageState = localStorage.getItem('state')
 
 if (storageState) {
   initialState = JSON.parse(storageState)
+  initialState.ui = {}
 }
 
 export const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares))

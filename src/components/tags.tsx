@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import { RootState } from 'store-types'
-import { selectors } from '../state/reminders'
+import { tagsSelector } from '../state/selectors'
 
 
 type Props =
@@ -34,7 +34,7 @@ function Tags(props: Props) {
 }
 
 const mapStateToProps = (state: RootState) => ({
-  tags: selectors.tags(state)
+  tags: tagsSelector(state)
 })
 
 export default connect(
