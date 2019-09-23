@@ -15,7 +15,9 @@ const Route: React.FunctionComponent<Props> = ({ component: Component }) => (
 function App() {
   return (
     <div className="pane-row dark-mode">
-      <SideNav />
+      <div className="pane pane-fixed pane-width-1">
+        <SideNav />
+      </div>
       <Router className="pane">
         <Route component={Reminders} path="/reminders" default />
         <Route component={Notes} path="/notes" />

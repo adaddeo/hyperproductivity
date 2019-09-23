@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 
 import './styles/index.scss'
 import './index.scss'
+import './font-awesome.ts'
 import { store } from './state'
 import App from './components/app'
 import * as serviceWorker from './serviceWorker'

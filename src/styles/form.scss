@@ -13,16 +13,17 @@ input[type='datetime'],
 input[type='datetime-local'],
 input:not([type]) {
   appearance: none; // Removes awkward default styles on some inputs for iOS
-  background-color: transparent;
+  background-color: $base02;
 	border: none;
-  border-bottom: 1px solid $base02;
+//  border-bottom: 1px solid $base02;
 	box-shadow: none;
 	box-sizing: inherit; // Forced to replace inherit values of the normalize.css
 	width: 100%;
   color: $base0;
   outline: none;
 
-  height: 40px;
+  height: 27px;
+  padding: 0 nth($sizes, 3);
   vertical-align: middle;
 
   &:focus,
@@ -54,6 +55,7 @@ select {
 }
 
 input[type="text"].clear {
+  background: transparent;
   height: auto;
   border-bottom: none;
 }

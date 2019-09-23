@@ -1,8 +1,11 @@
-.pane-column {
+.pane-column, .pane-row {
   display: flex;
   height: 100%;
   width: 100%;
   flex: auto;
+}
+
+.pane-column {
   flex-direction: column;
 
   > .pane:not(:last-child) {
@@ -17,10 +20,6 @@
 }
 
 .pane-row {
-  display: flex;
-  height: 100%;
-  width: 100%;
-  flex: auto;
   flex-direction: row;
 
   > .pane:not(:last-child) {
@@ -34,8 +33,6 @@
   }
 }
 
-
-
 .pane {
   flex: auto;
   overflow-y: auto;
@@ -45,17 +42,37 @@
   flex: none;
 }
 
+.pane-width-1 {
+  width: 180px;
+}
+
+.pane-width-2 {
+  width: 240px;
+}
+
+.pane-width-3 {
+  width: 320px;
+}
+
+.pane-heading {
+  padding: $padding-vertical $padding-horizontal nth($sizes, 3);
+}
+
 .pane-body {
   padding: $padding-vertical $padding-horizontal;
+}
+
+.pane-body-condensed {
+  padding: nth($sizes, 4) $padding-horizontal;
+}
+
+.pane-body-minimal {
+  padding: nth($sizes, 2) $padding-horizontal;
 }
 
 .pane-unbody {
   margin-right: -$padding-horizontal;
   margin-left: -$padding-horizontal;
-}
-
-.pane-body-condensed {
-  padding: $length-1 $padding-horizontal;
 }
 
 .pane-highlight {
