@@ -2,7 +2,10 @@ import moment from 'moment'
 import uuid from 'uuid/v4'
 import Quill, { DeltaStatic } from 'quill'
 
-export interface Note {
+import { Archivable } from './base'
+
+
+export interface Note extends Archivable {
   id: string
   title: string
   delta: DeltaStatic
@@ -17,6 +20,7 @@ export const build = (): Note => ({
   title: '',
   delta: new Delta(),
   lastModified: moment().toISOString(),
+  archivedAt: null,
   tags: []
 })
 

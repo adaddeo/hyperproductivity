@@ -1,14 +1,16 @@
 import { createAction, createReducer } from 'typesafe-actions'
 
-import { add as addNote } from './notes'
+import { add as addNote, del as delNote } from './notes'
 
 /* State */
 
-export type NotesState = {
-  currentNoteId?: string
+export type UIState = {
+  currentNoteId: string | null
 }
 
-const initialState: NotesState = {}
+const initialState: UIState = {
+  currentNoteId: null
+}
 
 /* Actions & Creators */
 
@@ -28,5 +30,11 @@ export const reducer =
       return {
         ...state,
         currentNoteId: action.payload.id
+      }
+    })
+    .handleAction(delNote, (state) => {
+      return {
+        ...state,
+        currentNoteId: null
       }
     })

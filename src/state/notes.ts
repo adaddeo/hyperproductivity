@@ -1,6 +1,7 @@
 import { createAction, createReducer } from 'typesafe-actions'
 
-import { Note, build, buildUpdate } from '../models'
+import { Note, build, buildUpdate } from '../models/note'
+import { archive as archiveNote } from '../models/base'
 
 
 /* State */
@@ -19,14 +20,19 @@ export const update = createAction('notes/UPDATE', action => {
   return (id: string, note: Partial<Note>) => action({ id, note })
 })
 
-export const remove = createAction('notes/DELETE', action => {
+export const archive = createAction('notes/ARCHIVE', action => {
+  return (id: string) => action({ id })
+})
+
+export const del = createAction('notes/DELETE', action => {
   return (id: string) => action({ id })
 })
 
 export const actions = {
   add,
+  archive,
   update,
-  remove
+  del
 }
 
 /* Reducer */
@@ -48,6 +54,15 @@ export const reducer =
         }
       })
     })
-    .handleAction(remove, (state, action) => {
+    .handleAction(archive, (state, action) => {
+      return state.map(note => {
+        if (note.id === action.payload.id) {
+          return archiveNote(note)
+        } else {
+          return note
+        }
+      })
+    })
+    .handleAction(del, (state, action) => {
       return state.filter(item => item.id !== action.payload.id)
     })

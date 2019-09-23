@@ -23,7 +23,7 @@ let storageState = localStorage.getItem('state')
 
 if (storageState) {
   initialState = JSON.parse(storageState)
-  initialState.ui = {}
+  delete initialState.ui 
 }
 
 export const store = createStore(rootReducer, initialState, applyMiddleware(...middlewares))

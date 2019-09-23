@@ -22,8 +22,8 @@ export const currentNoteSelector = createSelector(
   notesStateSelector,
   currentNoteIdSelector,
   (notes, id) => {
-    if (id === undefined) {
-      return undefined
+    if (id === null) {
+      return null 
     }
 
     const note = notes.find(note => note.id === id)
