@@ -1,7 +1,7 @@
 {
-  "name": "upkeep",
+  "name": "hyperproductivity",
   "version": "0.1.0",
-  "private": true,
+  "license": "GPL-3.0",
   "dependencies": {
     "@reach/router": "^1.2.1",
     "delta": "^3.0.5",
