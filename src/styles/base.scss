@@ -184,6 +184,10 @@ th {
   }
 }
 
+.text-emphasized {
+  color: $base1;
+}
+
 .text-small {
   font-size: 14px;
 }
@@ -227,6 +231,7 @@ th {
 
 .flex-column {
   flex-direction: column;
+  height: 100%;
 }
 
 .flex-left { justify-content: flex-start; }

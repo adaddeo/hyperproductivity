@@ -26,6 +26,10 @@ function Editor(props: { note: Note } & ReturnType<typeof mapDispatchToProps>) {
   const { note, update } = props
 
   const quillContainer = useQuill({
+    configurationOptions: {
+      scrollingContainer: 'ql-container',
+      theme: 'snow'
+    },
     textChange: delta => update(note.id, { delta }),
     initialValue: note.delta
   })
@@ -38,10 +42,18 @@ function Editor(props: { note: Note } & ReturnType<typeof mapDispatchToProps>) {
   return (
     <div className="pane-column">
       <div className="pane pane-fixed pane-body-condensed">
-        <input type="text" name="title" value={note.title} onChange={handleChange} />
+        <input
+          type="text"
+          name="title"
+          value={note.title} 
+          onChange={handleChange} 
+          className="clear h5"
+        />
       </div>
       <div className="pane">
-        <div ref={quillContainer} />
+        <div className="flex flex-column">
+          <div ref={quillContainer} />
+        </div>
       </div>
     </div>
   )

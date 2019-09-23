@@ -2,6 +2,14 @@
 
 /* Quill styles */
 
+.ql-toolbar {
+  flex-grow: 0;
+}
+
+.ql-container {
+  flex-grow: 1;
+}
+
 .ql-toolbar.ql-snow {
   border: none;
   border-bottom: 1px solid black;

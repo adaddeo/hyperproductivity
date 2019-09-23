@@ -52,3 +52,8 @@ select {
     border-bottom: 1px solid $yellow;
   }
 }
+
+input[type="text"].clear {
+  height: auto;
+  border-bottom: none;
+}
