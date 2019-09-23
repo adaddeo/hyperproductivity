@@ -1,6 +1,6 @@
 import { createAction, createReducer } from 'typesafe-actions'
 
-import { Note, buildNote } from '../models'
+import { Note, build, buildUpdate } from '../models'
 
 
 /* State */
@@ -12,7 +12,7 @@ const initialState: NotesState = []
 /* Actions & Creators */
 
 export const add = createAction('notes/ADD', action => {
-  return () => action(buildNote())
+  return () => action(build())
 })
 
 export const update = createAction('notes/UPDATE', action => {
@@ -42,10 +42,7 @@ export const reducer =
     .handleAction(update, (state, action) => {
       return state.map(note => {
         if (note.id === action.payload.id) {
-          return {
-            ...note,
-            ...action.payload.note
-          }
+          return buildUpdate(note, action.payload.note)
         } else {
           return note
         }

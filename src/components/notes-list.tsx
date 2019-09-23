@@ -38,9 +38,10 @@ function NotesList(props: Props) {
       <div className="pane">
         <div className="pane-column pane-list">
           { sortedNotes.map(note =>
-              <a key={note.id} className="pane pane-fixed pane-body pane-body-condensed" onClick={() => open(note.id)} href={`#${note.id}`}>
+              <div key={note.id} className="pane pane-fixed pane-body pane-body-condensed" onClick={() => open(note.id)} >
                 <div className="h5 text-yellow">{note.displayTitle}</div>
-              </a>
+                <div className="margin-0-top text-small text-muted">Modified {note.displayLastModified}</div>
+              </div>
             )
           }
         </div>
