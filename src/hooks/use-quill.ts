@@ -22,7 +22,7 @@ export default ({
       instance.current.setContents(initialValue)
       instance.current.focus()
     }
-  }, [textChange, initialValue])
+  }, [configurationOptions, textChange, initialValue])
 
   return container
 }
