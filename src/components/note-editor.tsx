@@ -3,7 +3,7 @@ import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { RootState } from 'store-types'
 
-import { useQuill } from '../hooks'
+import { useInputState, useQuill } from '../hooks'
 import { Note } from '../models/note'
 import { currentNoteSelector } from '../state/selectors'
 import { actions as noteActions } from '../state/notes'
@@ -12,17 +12,17 @@ import { actions as noteActions } from '../state/notes'
 type Props =
   ReturnType<typeof mapStateToProps>
 
-function NoteEditor(props: Props) {
+function NoteEditorContainer(props: Props) {
   const { note } = props
 
   if (note === undefined) {
     return null
   } else {
-    return <ConnectedEditor key={note.id} note={note} />
+    return <ConnectedNoteEditor key={note.id} note={note} />
   }
 }
 
-function Editor(props: { note: Note } & ReturnType<typeof mapDispatchToProps>) {
+function NoteEditor(props: { note: Note } & ReturnType<typeof mapDispatchToProps>) {
   const { note, update } = props
 
   const quillContainer = useQuill({
@@ -47,7 +47,15 @@ function Editor(props: { note: Note } & ReturnType<typeof mapDispatchToProps>) {
           name="title"
           value={note.title} 
           onChange={handleChange} 
+          placeholder="Title"
           className="clear h5"
+        />
+
+        <input
+          type="text"
+          name="title"
+          placeholder="#tags"
+          className="clear"
         />
       </div>
       <div className="pane">
@@ -65,10 +73,10 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     update: noteActions.update
   }, dispatch)
 
-const ConnectedEditor = connect(
+const ConnectedNoteEditor = connect(
   null,
   mapDispatchToProps
-)(Editor)
+)(NoteEditor)
 
 
 const mapStateToProps = (state: RootState) => ({
@@ -77,4 +85,4 @@ const mapStateToProps = (state: RootState) => ({
 
 export default connect(
   mapStateToProps
-)(NoteEditor)
+)(NoteEditorContainer)
