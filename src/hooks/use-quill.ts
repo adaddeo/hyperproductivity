@@ -18,7 +18,7 @@ export default ({
   const container = useCallback(node => {
     if (node !== null && instance.current === null) {
       instance.current = new Quill(node, configurationOptions)
-      instance.current.on('text-change', (delta, oldDelta, source) => textChange(oldDelta.compose(delta)))
+      instance.current.on('text-change', (delta, oldDelta, source) => source === "user" && textChange(oldDelta.compose(delta)))
       instance.current.setContents(initialValue)
       instance.current.focus()
     }
