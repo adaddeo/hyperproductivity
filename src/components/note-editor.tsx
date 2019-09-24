@@ -3,7 +3,7 @@ import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { RootState } from 'store-types'
 
-import { useInputState, useQuill } from '../hooks'
+import { useQuill } from '../hooks'
 import { Note } from '../models/note'
 import { currentNoteSelector } from '../state/selectors'
 import { actions as noteActions } from '../state/notes'
@@ -45,8 +45,8 @@ function NoteEditor(props: { note: Note } & ReturnType<typeof mapDispatchToProps
         <input
           type="text"
           name="title"
-          value={note.title} 
-          onChange={handleChange} 
+          value={note.title}
+          onChange={handleChange}
           placeholder="Title"
           className="clear h5"
         />
