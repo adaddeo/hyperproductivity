@@ -75,13 +75,23 @@ input[type='submit'] {
 }
 
 .button-icon {
-  cursor: pointer;
-  background: $base02;
-  color: $base01;
+  background: inherit;
   line-height: inherit;
-  font-size: 80%;
+  outline: none;
+  cursor: pointer;
+  color: $base01;
   border: none;
-  padding: 0 nth($sizes, 3);
+  border-radius: 50%;
+  padding: nth($sizes, 4) nth($sizes, 4);
+
+  &:focus,
+  &:hover {
+    background: $base02;
+  }
+
+  &:active {
+    color: $base1;
+  }
 
   &.button-green {
     &:hover {

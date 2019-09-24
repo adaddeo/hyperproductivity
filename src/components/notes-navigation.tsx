@@ -21,19 +21,15 @@ function NotesList(props: Props) {
   return (
     <div className="pane-column">
       <div className="pane pane-fixed pane-heading">
-        <div className="flex flex-between">
+        <div className="flex flex-between" style={{alignItems: 'center'}}>
           <div className="h5">Notes</div>
           <button className="button-icon button-green" onClick={() => add()}>
-              <FontAwesomeIcon icon="plus" />
+              <FontAwesomeIcon icon="plus" fixedWidth />
           </button>
          </div>
 
         <div className="margin-top">
           <input type="text" placeholder="Search" />
-        </div>
-
-        <div className="margin-top">
-          <a href="#reminders-options">Options</a>
         </div>
       </div>
 

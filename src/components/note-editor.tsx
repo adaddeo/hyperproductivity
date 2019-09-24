@@ -25,7 +25,7 @@ function NoteEditorContainer(props: Props) {
 function NoteEditor(props: { note: Note } & ReturnType<typeof mapDispatchToProps>) {
   const { note, archive, del, update } = props
 
-  const quillContainer = useQuill({
+  const [quillContainer] = useQuill({
     configurationOptions: {
       scrollingContainer: 'ql-container',
       theme: 'snow'

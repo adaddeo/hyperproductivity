@@ -2,6 +2,7 @@ import React, { useMemo } from 'react'
 // import React, { useState } from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { RootState } from 'store-types'
 import { actions } from '../state/reminders'
@@ -19,7 +20,7 @@ type Props =
 // }
 
 function RemindersList(props: Props) {
-  const { reminders, remove, markDone } = props
+  const { reminders } = props
 
   // const [displayFields, setDisplayFields] = useState(displayFieldDefaults)
   // const handleDisplayFieldToggle = (event: any) => {
@@ -56,7 +57,7 @@ function RemindersList(props: Props) {
                 <div>
                   <div className="h4 text-yellow">{reminder.title}</div>
                   { reminder.description &&
-                    <div className="text-small text-muted margin-1-top">{reminder.description}</div>
+                    <div className="text-small text-muted">{reminder.description}</div>
                   }
                   <div className="margin-2-top">
                     <div className="margin-1-top">
@@ -75,19 +76,9 @@ function RemindersList(props: Props) {
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-column">
-                  <button
-                    onClick={() => markDone(reminder.id, '')}
-                    className="button-green"
-                  >
-                    Mark done
-                  </button>
-                  {' '}
-                  <button
-                    onClick={() => remove(reminder.id)}
-                    className="button-danger margin-2-top"
-                  >
-                    Remove
+                <div>
+                  <button className="button-icon">
+                    <FontAwesomeIcon icon="ellipsis-v" fixedWidth />
                   </button>
                 </div>
               </div>
