@@ -29,98 +29,6 @@ a {
   }
 }
 
-.button,
-input[type='button'],
-input[type='reset'],
-input[type='submit'] {
-	background-color: transparent;
-	border: 1px solid $base1;
-	color: $base1;
-	cursor: pointer;
-	display: inline-block;
-	text-align: center;
-	text-decoration: none;
-	text-transform: uppercase;
-	white-space: nowrap;
-  letter-spacing: 1px;
-  padding: 0 15px;
-  line-height: 24px;
-  outline: none;
-
-  &:focus,
-  &:hover {
-    background-color: $base1;
-    border-color: $base03;
-    color: $base03;
-  }
-
-  &:disabled {
-    cursor: default;
-    opacity: 0.5;
-
-    &:focus,
-    &:hover {
-      background: transparent;
-      color: $base1;
-      border-color: $base1;
-    }
-  }
-
-  &.button-green {
-    border-color: $green;
-    color: $green;
-
-    &:focus,
-    &:hover {
-      color: $base03;
-      background-color: $green;
-    }
-
-    &:disabled {
-      &:focus,
-      &:hover {
-        border-color: $green;
-        color: $green;
-      }
-    }
-  }
-
-  &.button-danger {
-    border-color: $red;
-    color: $red;
-
-    &:focus,
-    &:hover {
-      color: $base03;
-      background-color: $red;
-    }
-
-    &:disabled {
-      &:focus,
-      &:hover {
-        border-color: $red;
-        color: $red;
-      }
-    }
-  }
-}
-
-.button-icon {
-  cursor: pointer;
-  background: $base02;
-  color: $base01;
-  line-height: inherit;
-  font-size: 80%;
-  border: none;
-  padding: 0 nth($sizes, 3);
-  
-  &.button-green {
-    &:hover {
-      color: $green;
-    }
-  }
-}
-
 h1, h2, h3 {
   margin-top: 0;
   margin-bottom: nth($sizes, 4);
@@ -170,6 +78,7 @@ th {
   }
 }
 
+// Margin
 
 .margin-top {
   margin-top: $length-2;
@@ -199,6 +108,8 @@ th {
   }
 }
 
+// Text
+
 .text-emphasized {
   color: $base1;
 }
@@ -214,12 +125,6 @@ th {
 .text-bold {
   font-weight: 600;
 }
-
-#root {
-  height: 100%;
-}
-
-// Text
 
 .text-yellow {
   color: $yellow;

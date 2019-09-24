@@ -45,7 +45,7 @@ function RemindersList(props: Props) {
 
   return (
     <div className="pane-column">
-      <div className="pane pane-fixed pane-highlight pane-body-condensed">
+      <div className="pane pane-fixed pane-highlight pane-body-minimal">
         <a href="#reminders-options">Options</a>
       </div>
 
