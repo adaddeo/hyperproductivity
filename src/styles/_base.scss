@@ -10,13 +10,11 @@ html {
 }
 
 body {
-  font-size: 16px;
-  font-family: 'Source Sans Pro', monospace, sans-serif;
-  padding: 0;
   height: 100%;
-
   background: $base03;
   color: $base0;
+  font-size: 16px;
+  font-family: 'Source Sans Pro', monospace, sans-serif;
 }
 
 a {
@@ -26,55 +24,6 @@ a {
 
   &:hover {
     color: $cyan;
-  }
-}
-
-h1, h2, h3 {
-  margin-top: 0;
-  margin-bottom: nth($sizes, 4);
-}
-
-h4, h5, h6 {
-  margin-top: 0;
-  margin-bottom: nth($sizes, 3);
-}
-
-.h3, h3 {
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 24px;
-}
-
-.h4, h4 {
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 20px;
-  color: $base1;
-}
-
-.h5, h5 {
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 20px;
-  color: $base1;
-}
-
-table {
-	border-spacing: 0;
-	width: 100%;
-}
-
-td,
-th {
-	padding: 6px 9px;
-	text-align: left;
-
-	&:first-child {
-		padding-left: 0
-  }
-
-	&:last-child {
-		padding-right: 0
   }
 }
 

@@ -1,4 +1,5 @@
-.pane-column, .pane-row {
+.pane-column,
+.pane-row {
   display: flex;
   height: 100%;
   width: 100%;
@@ -82,9 +83,4 @@
 .pane-header {
   flex-grow: 0;
   padding: 8px 12px;
-}
-
-.pane-title {
-  font-size: 18px;
-  font-weight: 600;
 }

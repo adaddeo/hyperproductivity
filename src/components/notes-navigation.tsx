@@ -22,7 +22,7 @@ function NotesList(props: Props) {
     <div className="pane-column">
       <div className="pane pane-fixed pane-heading">
         <div className="flex flex-between">
-          <div className="h4">Notes</div>
+          <div className="h5">Notes</div>
           <button className="button-icon button-green" onClick={() => add()}>
               <FontAwesomeIcon icon="plus" />
           </button>
@@ -45,8 +45,8 @@ function NotesList(props: Props) {
           <div className="pane-column pane-list">
             { sortedNotes.map(note =>
                 <div key={note.id} className="pane pane-fixed pane-body pane-body-condensed" onClick={() => open(note.id)} >
-                  <div className="h5 text-yellow">{note.displayTitle}</div>
-                  <div className="margin-0-top text-small text-muted">Modified {note.displayLastModified}</div>
+                  <div className="h4 text-yellow">{note.displayTitle}</div>
+                  <div className="margin-1-top text-small text-muted">Modified {note.displayLastModified}</div>
                 </div>
               )
             }

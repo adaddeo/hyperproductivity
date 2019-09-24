@@ -54,11 +54,11 @@ function RemindersList(props: Props) {
             (reminder, idx) =>
               <div key={reminder.id} className="reminder">
                 <div>
-                  <div className="h5 text-yellow">{reminder.title}</div>
+                  <div className="h4 text-yellow">{reminder.title}</div>
                   { reminder.description &&
                     <div className="text-small text-muted margin-1-top">{reminder.description}</div>
                   }
-                  <div className="margin-3-top">
+                  <div className="margin-2-top">
                     <div className="margin-1-top">
                       Recurs
                       {' '}
