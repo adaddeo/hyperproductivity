@@ -1,3 +1,4 @@
+$input-height: 27px;
 
 input[type='email'],
 input[type='password'],
@@ -22,7 +23,7 @@ input:not([type]) {
   color: $base0;
   outline: none;
 
-  height: 27px;
+  height: $input-height;
   padding: 0 nth($sizes, 3);
   vertical-align: middle;
 
@@ -43,7 +44,7 @@ select {
   padding: 0 $length-0;
   background: $base02;
   border: none;
-  height: 40px;
+  height: $input-height;
   width: 100%;
   outline: none;
   color: $base0;
@@ -54,7 +55,7 @@ select {
   }
 }
 
-input[type="text"].clear {
+input.clear {
   background: transparent;
   height: auto;
   border-bottom: none;
