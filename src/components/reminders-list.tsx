@@ -38,7 +38,7 @@ function RemindersList(props: Props) {
 
   if (reminders.length === 0) {
     return (
-      <div className="centered">
+      <div className="pane-body">
         No reminders.
       </div>
     )
