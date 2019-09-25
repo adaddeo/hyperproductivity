@@ -1,8 +1,8 @@
 import moment from 'moment'
-import uuid from 'uuid/v4'
 
-export interface Reminder {
-  id: string
+import { Indexable, buildIndexable } from './common'
+
+export interface Reminder extends Indexable {
   title: string
   description?: string
   tags: string[]
@@ -22,8 +22,7 @@ export interface OccurrenceEvent {
   notes?: string
 }
 
-export const buildReminder = (options: Omit<Reminder, 'id' | 'events'>): Reminder => ({
-  id: uuid(),
+export const buildReminder = (options: Omit<Reminder, 'id' | 'events'>): Reminder => buildIndexable({
   tags: [],
   events: [],
   ...options

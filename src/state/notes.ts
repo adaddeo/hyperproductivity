@@ -1,7 +1,7 @@
 import { createAction, createReducer } from 'typesafe-actions'
 
 import { Note, build, buildUpdate } from '../models/note'
-import { archive as archiveNote } from '../models/base'
+import { archive as archiveNote } from '../models/common'
 
 
 /* State */

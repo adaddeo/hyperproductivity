@@ -1,38 +1,44 @@
 import moment from 'moment'
-import uuid from 'uuid/v4'
+import { compose } from 'redux'
 import Quill, { DeltaStatic } from 'quill'
 
-import { Archivable } from './base'
+import {
+  Archivable,
+  Indexable,
+  Modifyable,
+  buildIndexable,
+  buildArchivable,
+  buildModifable,
+  modify
+} from './common'
 
 
-export interface Note extends Archivable {
-  id: string
+export interface Note extends Archivable, Indexable, Modifyable {
   title: string
   delta: DeltaStatic
   tags: string[]
-  lastModified: string
 }
 
 const Delta = Quill.import('delta')
 
-export const build = (): Note => ({
-  id: uuid(),
+export const build = (): Note => compose(
+  buildIndexable,
+  buildArchivable,
+  buildModifable
+)({
   title: '',
   delta: new Delta(),
-  lastModified: moment().toISOString(),
-  archivedAt: null,
   tags: []
 })
 
-export const buildUpdate = (note: Note, updates: Partial<Note>): Note => ({
+export const buildUpdate = (note: Note, updates: Partial<Note>): Note => modify({
   ...note,
-  lastModified: moment().toISOString(),
   ...updates
 })
 
 export const noteView = (note: Note) => {
   const displayTitle = note.title === '' ? 'Untitled' : note.title
-  const displayLastModified = moment(note.lastModified).format('LLL')
+  const displayLastModified = moment(note.lastModifiedAt).format('LLL')
 
   return {
     ...note,
