@@ -10,12 +10,12 @@ function SideNav() {
       <h5>Views</h5>
 
       <div className="pane-unbody">
-        <div className="side-nav">
+        <nav className="side-nav">
           <Link to="/events">Events</Link>
           <Link to="/notes">Notes</Link>
           <Link to="/reminders">Reminders</Link>
           <Link to="/tasks">Tasks</Link>
-        </div>
+        </nav>
       </div>
 
       <h5 className="margin-6-top">Tags</h5>

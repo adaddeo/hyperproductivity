@@ -17,7 +17,7 @@ function Tags(props: Props) {
 
   return (
     <div className="pane-unbody">
-      <div className="side-nav">
+      <nav className="side-nav">
         { tags.length > 0 &&
           tags.map(tag => (
             <a key={tag.handle} href="#tags">
@@ -28,7 +28,7 @@ function Tags(props: Props) {
             </a>
           ))
         }
-      </div>
+      </nav>
     </div>
   )
 }
