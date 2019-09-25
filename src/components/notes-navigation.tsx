@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { bindActionCreators, Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,6 +7,7 @@ import { RootState } from 'store-types'
 import { notesSelector } from '../state/selectors'
 import { actions as uiActions } from '../state/ui'
 import { actions as noteActions } from '../state/notes'
+import { useInputState } from '../hooks'
 
 
 type Props =
@@ -16,7 +17,17 @@ type Props =
 function NotesList(props: Props) {
   const { notes, add, open } = props
 
-  const sortedNotes = notes
+  const [search, , handleSearchChange] = useInputState('')
+
+  const sortedNotes = useMemo(() => {
+    const s = search.toLowerCase()
+
+    if (search === '') {
+      return notes
+    }
+
+    return notes.filter(n => n.title.toLowerCase().indexOf(s) !== -1)
+  }, [notes, search])
 
   return (
     <div className="pane-column">
@@ -29,7 +40,12 @@ function NotesList(props: Props) {
          </div>
 
         <div className="margin-top">
-          <input type="text" placeholder="Search" />
+          <input
+            type="text"
+            placeholder="Search"
+            value={search}
+            onChange={handleSearchChange}
+          />
         </div>
       </div>
 

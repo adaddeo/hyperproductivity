@@ -16,7 +16,6 @@ input:not([type]) {
   appearance: none; // Removes awkward default styles on some inputs for iOS
   background-color: $base02;
 	border: none;
-//  border-bottom: 1px solid $base02;
 	box-shadow: none;
 	box-sizing: inherit; // Forced to replace inherit values of the normalize.css
 	width: 100%;
@@ -27,10 +26,10 @@ input:not([type]) {
   padding: 0 nth($sizes, 3);
   vertical-align: middle;
 
-  &:focus,
-  &:active {
-    border-bottom: 1px solid $yellow;
-  }
+  // &:focus,
+  // &:active {
+  //   border-bottom: 1px solid $yellow;
+  // }
 
   &::placeholder {
     color: $base01;
@@ -49,10 +48,10 @@ select {
   outline: none;
   color: $base0;
 
-  &:focus,
-  &:active {
-    border-bottom: 1px solid $yellow;
-  }
+  // &:focus,
+  // &:active {
+  //   border-bottom: 1px solid $yellow;
+  // }
 }
 
 input.clear {
